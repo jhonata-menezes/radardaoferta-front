@@ -1,0 +1,21 @@
+<html>
+<head>
+<script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8" ></script>
+</head>
+<body>
+<div id="app">
+	<h1>{{ titulo }}</h1>
+	<input type="text" v-model="titulo">
+
+	<div>
+		<ul>
+			<li v-for="n in lista">
+				{{ n.nome }}
+			</li>
+			<li>{{ titulo }}</li>
+		</ul>
+	</div>
+</div>
+	<script src="app.js" type="text/javascript" charset="utf-8" ></script>
+</body>
+</html>
