@@ -3,6 +3,7 @@
 <title>Produtos</title>
 <script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8" ></script>
 <script src="node_modules/vue-resource/dist/vue-resource.js" type="text/javascript" charset="utf-8" ></script>
+<script src="node_modules/lodash/sortBy.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 <body>
 <div id="app">
@@ -18,9 +19,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="p in filtroSearch">
-				<td>{{ p.nome }}</td>
-				<td>{{ p.valor }}</td>
+			<tr v-for="p in orderByColumn">
+				<td>{{ p.nome[0].toUpperCase() + p.nome.slice(1) }}</td>
+				<td>{{ "R$ " + p.valor.toFixed(2) }}</td>
 				<td>{{ p.link }}</td>
 			</tr>
 		</tbody>

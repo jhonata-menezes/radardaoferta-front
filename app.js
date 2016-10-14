@@ -1,4 +1,4 @@
- a = new Vue({  
+a = new Vue({  
   el: '#app',
   data: {
      produtos:[],
@@ -11,9 +11,11 @@
     filtroSearch:function(){
       var self=this;
       return self.produtos.filter(function (p) {
-        console.log(p.nome);
         return p.nome.toLowerCase().indexOf(self.search.toLowerCase()) !== -1
       });
+    },
+    orderByColumn: function(){
+      return _.orderBy(this.produtos, 'valor');
     }
   },
 
