@@ -1,0 +1,20 @@
+[{
+    "nome":"Iphone 6s",
+    "valor":2400,
+    "link":"http://google.com.br"
+},
+{
+    "nome":"Iphone 7s",
+    "valor":5400,
+    "link":"http://google.com.br"
+},
+{
+    "nome":"TV LG 40",
+    "valor":3400,
+    "link":"http://google.com.br"
+},
+{
+    "nome":"Ventilador Arno",
+    "valor":100,
+    "link":"http://google.com.br"
+}]

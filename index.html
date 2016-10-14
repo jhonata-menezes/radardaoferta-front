@@ -1,21 +1,32 @@
 <html>
 <head>
+<title>Produtos</title>
 <script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8" ></script>
+<script src="node_modules/vue-resource/dist/vue-resource.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 <body>
 <div id="app">
-	<h1>{{ titulo }}</h1>
-	<input type="text" v-model="titulo">
-
 	<div>
-		<ul>
-			<li v-for="n in lista">
-				{{ n.nome }}
-			</li>
-			<li>{{ titulo }}</li>
-		</ul>
+		<input v-model="search" placeholder="Pesquisa">
 	</div>
+	<table border="2">
+		<thead>
+			<tr>
+				<td>Nome</td>
+				<td>Valor</td>
+				<td>Link</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="p in filtroSearch">
+				<td>{{ p.nome }}</td>
+				<td>{{ p.valor }}</td>
+				<td>{{ p.link }}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-	<script src="app.js" type="text/javascript" charset="utf-8" ></script>
+<script src="app.js" type="text/javascript" charset="utf-8" ></script>
+	
 </body>
 </html>
