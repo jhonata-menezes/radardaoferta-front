@@ -15,7 +15,7 @@ a = new Vue({
       });
     },
     orderByColumn: function(){
-      return _.orderBy(this.produtos, 'valor');
+      return this.produtos;
     }
   },
 

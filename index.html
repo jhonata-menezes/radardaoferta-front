@@ -1,33 +1,46 @@
 <html>
+
 <head>
-<title>Produtos</title>
-<script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8" ></script>
-<script src="node_modules/vue-resource/dist/vue-resource.js" type="text/javascript" charset="utf-8" ></script>
-<script src="node_modules/lodash/sortBy.js" type="text/javascript" charset="utf-8" ></script>
+    <title>Produtos</title>
+    <script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="node_modules/vue-resource/dist/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="assets/foundation/css/foundation.css">
 </head>
+
 <body>
-<div id="app">
-	<div>
-		<input v-model="search" placeholder="Pesquisa">
-	</div>
-	<table border="2">
-		<thead>
-			<tr>
-				<td>Nome</td>
-				<td>Valor</td>
-				<td>Link</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="p in orderByColumn">
-				<td>{{ p.nome[0].toUpperCase() + p.nome.slice(1) }}</td>
-				<td>{{ "R$ " + p.valor.toFixed(2) }}</td>
-				<td>{{ p.link }}</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<script src="app.js" type="text/javascript" charset="utf-8" ></script>
-	
+    <div id="app" class="row">
+        <div class="large-12 columns">
+            <h2>Produtos</h2>
+        </div>
+        <hr>
+        <form>
+            <div class="">
+                <div class="medium-4 columns">
+                    <input type="text" v-model="search" placeholder="Pesquisa">
+                </div>
+            </div>
+        </form>
+        <table class="hover">
+            <thead class="text-center">
+                <tr class="table-head">
+                    <th class="text-center" width="200">Nome</th>
+                    <th class="text-center" width="200">Valor</th>
+                    <th class="text-center" width="200">Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="p in filtroSearch">
+                    <td class="text-center">{{ p.nome[0].toUpperCase() + p.nome.slice(1) }}</td>
+                    <td class="text-center">{{ "R$ " + p.valor.toFixed(2) }}</td>
+                    <td class="text-center">
+                        <a v-bind:href="p.link" target="_blank"> {{ p.link }} </a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="app.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="assets/foundation/js/vendor/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/foundation/js/vendor/foundation.js" type="text/javascript" charset="utf-8"></script> -->
 </body>
+
 </html>
