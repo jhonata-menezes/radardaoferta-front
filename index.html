@@ -3,11 +3,13 @@
 <head>
     <title>Produtos</title>
     <script src="node_modules/vue/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="node_modules/vue-router/dist/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="node_modules/vue-resource/dist/vue-resource.js" type="text/javascript" charset="utf-8"></script>
     <script src="assets/js/lodash.min.js" type="text/javascript" charset="utf-8"></script>
-    <link href='node_modules/font-awesome/css/font-awesome.css' rel='stylesheet' type='text/css'>
 
+    <link href='node_modules/font-awesome/css/font-awesome.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/foundation/css/foundation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
 </head>
 
 <body>
@@ -21,6 +23,9 @@
                 <div class="medium-4 columns">
                     <input type="text" v-model="search" placeholder="Pesquisa">
                 </div>
+                <div class="medium-4 columns">
+                    <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
+                </div>
             </div>
         </form>
         <table class="hover">
@@ -30,13 +35,15 @@
                     <th class="text-left" width="200">
                         <a href="#" v-on:click="orderByColumn($event, 'valor')"> <i class="fa fa-fw fa-sort"> </i> Valor </a>
                     </th>
+                    <th class="text-left" width="200">Loja</th>
                     <th class="text-left" width="200">Link</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="p in filtroSearch">
-                    <td class="text-left ">{{ p.nome[0].toUpperCase() + p.nome.slice(1) }}</td>
+                    <td class="text-left ">{{ p.nome }}</td>
                     <td class="text-left ">{{ "R$ " + p.valor.toFixed(2) }}</td>
+                    <td class="text-left ">{{ p.loja }}</td>
                     <td class="text-left ">
                         <a v-bind:href="p.link " target="_blank "> {{ p.link }} </a></td>
                 </tr>
@@ -44,16 +51,44 @@
         </table>
 
         <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-  <li class="pagination-previous disabled">Previous</li>
-  <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
-  <li><a href="#" aria-label="Page 2">2</a></li>
-  <li><a href="#" aria-label="Page 3">3</a></li>
-  <li><a href="#" aria-label="Page 4">4</a></li>
-  <li class="ellipsis"></li>
-  <li><a href="#" aria-label="Page 12">12</a></li>
-  <li><a href="#" aria-label="Page 13">13</a></li>
-  <li class="pagination-next"><a href="#" aria-label="Next page">Next</a></li>
+            <li class="pagination-previous disabled">Previous</li>
+            <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
+            <li><a href="#" aria-label="Page 2">2</a></li>
+            <li><a href="#" aria-label="Page 3">3</a></li>
+            <li><a href="#" aria-label="Page 4">4</a></li>
+            <li class="ellipsis"></li>
+            <li><a href="#" aria-label="Page 12">12</a></li>
+            <li><a href="#" aria-label="Page 13">13</a></li>
+            <li class="pagination-next"><a href="#" aria-label="Next page">Next</a></li>
         </ul>
+    </div>
+    <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+        <ul class="orbit-container">
+            <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+            <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+            <li class="is-active orbit-slide">
+                <img class="orbit-image" src="http://foundation.zurb.com/assets/img/homepage/inky-template.svg" alt="Space">
+                <figcaption class="orbit-caption">Space, the final frontier.</figcaption>
+            </li>
+            <li class="orbit-slide">
+                <img class="orbit-image" src="http://foundation.zurb.com/assets/img/homepage/inky-template.svg" alt="Space">
+                <figcaption class="orbit-caption">Lets Rocket!</figcaption>
+            </li>
+            <li class="orbit-slide">
+                <img class="orbit-image" src="http://foundation.zurb.com/assets/img/homepage/inky-template.svg" alt="Space">
+                <figcaption class="orbit-caption">Encapsulating</figcaption>
+            </li>
+            <li class="orbit-slide">
+                <img class="orbit-image" src="http://foundation.zurb.com/assets/img/homepage/inky-template.svg" alt="Space">
+                <figcaption class="orbit-caption">Outta This World</figcaption>
+            </li>
+        </ul>
+        <nav class="orbit-bullets">
+            <button class="is-active" data-slide="0"><span class="show-for-sr">First slide details.</span><span class="show-for-sr">Current Slide</span></button>
+            <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
+            <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
+            <button data-slide="3"><span class="show-for-sr">Fourth slide details.</span></button>
+        </nav>
     </div>
     <script src="app.js " type="text/javascript " charset="utf-8 "></script>
     <!-- <script src="assets/foundation/js/vendor/jquery.js " type="text/javascript " charset="utf-8 "></script>

@@ -3,7 +3,8 @@ a = new Vue({
     data: {
         produtos: [],
         produtosOrder: 'asc',
-        search: ''
+        search: '',
+        url: ''
     },
 
     methods: {
@@ -15,6 +16,16 @@ a = new Vue({
                 this.produtosOrder = 'asc';
             }
             this.produtos = _.orderBy(this.produtos, col, this.produtosOrder);
+        },
+        novaUrl: function(event) {
+            event.preventDefault();
+            var self = this;
+            self.$http.post('http://192.168.56.111:5014/api/produtos/novo', { url: self.url }).then(function(r, e) {
+                if (r) {
+                    alert(r.body.status);
+                    self.url = '';
+                }
+            });
         }
     },
 
@@ -29,7 +40,7 @@ a = new Vue({
 
     mounted: function() {
         var self = this;
-        self.$http.get('/produtos.json').then(function(r, e) {
+        self.$http.get('http://192.168.56.111:5014/api/produtos').then(function(r, e) {
             if (r) {
                 self.produtos = r.body;
             }
