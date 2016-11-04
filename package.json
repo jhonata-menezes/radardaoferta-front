@@ -16,6 +16,7 @@
     "motion-ui": "^1.2.2",
     "vue": "^2.0.3",
     "vue-resource": "^1.0.3",
-    "vue-router": "^2.0.1"
+    "vue-router": "^2.0.1",
+    "vuejs-paginator": "^2.0.0"
   }
 }
