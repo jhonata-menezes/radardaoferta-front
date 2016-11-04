@@ -20,9 +20,9 @@ a = new Vue({
         novaUrl: function(event) {
             event.preventDefault();
             var self = this;
-            self.$http.post('http://192.168.56.111:5014/api/produtos/novo', { url: self.url }).then(function(r, e) {
+            self.$http.post('http://127.0.0.1:5014/api/produtos/novo', { url: self.url }).then(function(r, e) {
                 if (r) {
-                    alert(r.body.status);
+                    document.getElementById('openModalNovaUrlOK').click();
                     self.url = '';
                 }
             });
@@ -40,7 +40,7 @@ a = new Vue({
 
     mounted: function() {
         var self = this;
-        self.$http.get('http://192.168.56.111:5014/api/produtos').then(function(r, e) {
+        self.$http.get('http://127.0.0.1:5014/api/produtos').then(function(r, e) {
             if (r) {
                 self.produtos = r.body;
             }
