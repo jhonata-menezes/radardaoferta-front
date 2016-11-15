@@ -49,6 +49,7 @@
 
 
 <script>
+    var axios = require('axios')
     module.exports = {
         data: function() {
             return {
@@ -131,11 +132,10 @@
         },
 
         mounted: function() {
-            var self = this;
-            this.$http.get('http://192.168.56.111:5014/api/produtos').then(function(r, e) {
+            axios.get('http://127.0.0.1:5014/api/produtos').then((r) => {
                 if (r) {
-                    self.produtosCompleto = r.body;
-                    self.produtos = self.produtosCompleto.slice(0, self.paginator.qtdItensPorPagina);
+                    this.produtosCompleto = r.data;
+                    this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
                 }
             });
         }

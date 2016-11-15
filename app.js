@@ -1,10 +1,11 @@
 var Vue = require('vue')
 var VueRouter = require('vue-router')
-var VueResource = require('vue-resource')
 var App = require('./App.vue')
+var axios = require('axios')
+var VueAxios = require('vue-axios')
 
+Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
-Vue.use(VueResource)
 
 routes = []
 
