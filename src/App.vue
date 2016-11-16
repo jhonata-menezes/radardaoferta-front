@@ -42,7 +42,9 @@
     </div>
   </div>
   <hr>
-  <a id="openModalNovaUrlOK" data-open="modalNovaUrlOK"></a>
+  <script>
+        $(document).foundation();
+    </script>
   </div>
 </template>
 
@@ -77,13 +79,12 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                var self = this;
-                self.$http.post('http://192.168.56.111:5014/api/produtos/novo', {
-                    url: self.url
-                }).then(function(r, e) {
+                axios.post('http://127.0.0.1:5014/api/produtos/novo', {
+                    url: this.url
+                }).then((r, e) => {
                     if (r) {
                         document.getElementById('openModalNovaUrlOK').click();
-                        self.url = '';
+                        this.url = '';
                     }
                 });
             },
