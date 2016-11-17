@@ -1,51 +1,50 @@
 <template>
-  <div>
-  <div class="large-12 columns">
-        <h2>Produtos</h2>
-  </div>
-  <hr>
-  <form>
-    <div class="">
-      <div class="medium-4 columns">
-        <input type="text" v-model="search" placeholder="Pesquisa">
-      </div>
-      <div class="medium-1 columns">
-        <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
-      </div>
-      <div class="medium-4 columns">
-        <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
-      </div>
-    </div>
-  </form>
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Produtos</h2>
+        </div>
+        <hr>
+        <form>
+            <div class="">
+                <div class="medium-4 columns">
+                    <input type="text" v-model="search" placeholder="Pesquisa">
+                </div>
+                <div class="medium-1 columns">
+                    <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
+                </div>
+                <div class="medium-4 columns">
+                    <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
+                </div>
+            </div>
+        </form>
 
-  <div class="reveal" id="modalNovaUrlOK" data-reveal>
-    <p>Muito obrigado por compartilhar o produto</p>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+        <div class="reveal" id="modalNovaUrlOK" data-reveal>
+            <p>Muito obrigado por compartilhar o produto</p>
+            <button class="close-button" data-close aria-label="Close modal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
-  <hr>
-  <div class="row small-up-2 large-up-4">
-    <div class="column" v-for="p in filtroSearch">
-      <img v-bind:title="p.nome" class="thumbnail" v-bind:src="p.imagens[0]">
-      <h5>{{ p.nome.substring(0,46) }}</h5>
-      <p>{{ "R$ " + p.valor.toFixed(2) }}</p>
-      <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
+        <hr>
+        <div class="row small-up-2 large-up-4">
+            <div class="column" v-for="p in filtroSearch">
+                <img v-bind:title="p.nome" class="thumbnail" v-bind:src="p.imagens[0]">
+                <h5>{{ p.nome.substring(0,46) }}</h5>
+                <p>{{ "R$ " + p.valor.toFixed(2) }}</p>
+                <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
+            </div>
+            <div class="footer">
+                <footer>
+                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                        <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">Anterior</li>
+                        <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><span v-if="paginator.paginaAtual == itemPage"><span class="show-for-sr"></span>{{ itemPage }}</span><a v-else href="#">{{ itemPage }}</a></li>
+                        <li class="pagination-next"><a href="#" aria-label="Next page" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="proximo($event)">Proximo</a></li>
+                    </ul>
+                </footer>
+            </div>
+        </div>
+        <hr>
     </div>
-    <div>
-      <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-        <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">Anterior</li>
-        <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><a href="#">{{ itemPage }}</a></li>
-        <li class="pagination-next"><a href="#" aria-label="Next page" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="proximo($event)">Proximo</a></li>
-      </ul>
-    </div>
-  </div>
-  <hr>
-  <script>
-        $(document).foundation();
-    </script>
-  </div>
 </template>
 
 
@@ -79,7 +78,7 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                axios.post('http://127.0.0.1:5014/api/produtos/novo', {
+                axios.post('http://192.168.56.111:5014/api/produtos/novo', {
                     url: this.url
                 }).then((r, e) => {
                     if (r) {
@@ -133,7 +132,7 @@
         },
 
         mounted: function() {
-            axios.get('http://127.0.0.1:5014/api/produtos').then((r) => {
+            axios.get('http://192.168.56.111:5014/api/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
