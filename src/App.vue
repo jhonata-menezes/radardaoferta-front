@@ -33,15 +33,15 @@
                 <p>{{ "R$ " + p.valor.toFixed(2) }}</p>
                 <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
             </div>
-            <div class="footer">
-                <footer>
-                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-                        <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">Anterior</li>
-                        <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><span v-if="paginator.paginaAtual == itemPage"><span class="show-for-sr"></span>{{ itemPage }}</span><a v-else href="#">{{ itemPage }}</a></li>
-                        <li class="pagination-next"><a href="#" aria-label="Next page" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="proximo($event)">Proximo</a></li>
-                    </ul>
-                </footer>
-            </div>
+        </div>
+        <div>
+            <footer class="footer">
+                <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                    <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">Anterior</li>
+                    <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><span v-if="paginator.paginaAtual == itemPage"><span class="show-for-sr"></span>{{ itemPage }}</span><a v-else href="#">{{ itemPage }}</a></li>
+                    <li class="pagination-next"><a href="#" aria-label="Next page" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="proximo($event)">Proximo</a></li>
+                </ul>
+            </footer>
         </div>
         <hr>
     </div>
