@@ -37,9 +37,16 @@
         <div>
             <footer class="footer">
                 <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-                    <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">Anterior</li>
+                    <li class="pagination-previous" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="anterior($event)">
+                        <span v-if="paginator.paginaAtual == 1" >Anterior<span class="show-for-sr"></span></span>
+                        <a v-else href="#" aria-label="Next page">Anterior<span class="show-for-sr"></span></a>
+                        
+                    </li>
                     <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><span v-if="paginator.paginaAtual == itemPage"><span class="show-for-sr"></span>{{ itemPage }}</span><a v-else href="#">{{ itemPage }}</a></li>
-                    <li class="pagination-next"><a href="#" aria-label="Next page" v-bind:class="{'disabled': paginator.paginaAtual == 1}" v-on:click="proximo($event)">Proximo</a></li>
+                    <li class="pagination-next" v-on:click="proximo($event)" v-bind:class="{'disabled': !proximaPaginaExiste()}">
+                        <span v-if="!proximaPaginaExiste()" >Proxima<span class="show-for-sr"></span></span>
+                        <a v-else href="#" aria-label="Next page">Proximo<span class="show-for-sr"></span></a>
+                    </li>
                 </ul>
             </footer>
         </div>
@@ -90,22 +97,35 @@
             paginacao: function(e, p) {
                 e.preventDefault();
                 this.paginator.paginaAtual = p;
+                this.atualizaQuantidadeLista();
             },
             anterior: function(e) {
                 e.preventDefault();
+                if(this.paginator.paginaAtual == 1){
+                    return;
+                }
                 this.paginator.paginaAtual--;
+                this.atualizaQuantidadeLista();
 
             },
             proximo: function(e) {
                 e.preventDefault();
-                this.paginator.paginaAtual++;
+                var qtdItensPassado = this.paginator.paginaAtual * this.paginator.qtdItensPorPagina;
+                if ((qtdItensPassado <= this.qtdTotalItens())) {
+                    this.paginator.paginaAtual++;
+                    this.atualizaQuantidadeLista();
+                }
+
             },
             qtdTotalItens: function() {
                 return this.produtosCompleto.length;
             },
             atualizaQuantidadeLista: function(e) {
-                var inicio = (this.qtdTotalItens() * (this.paginator.paginaAtual - 1));
-                this.produtos = this.produtosCompleto.slice(inicio, this.paginator.qtdItensPorPagina);
+                var inicio = ((this.paginator.paginaAtual - 1) * this.paginator.qtdItensPorPagina);
+                this.produtos = this.produtosCompleto.slice(inicio, inicio + this.paginator.qtdItensPorPagina);
+            },
+            proximaPaginaExiste: function() {
+                return (this.paginator.paginaAtual * this.paginator.qtdItensPorPagina) <= this.qtdTotalItens()
             }
         },
 
