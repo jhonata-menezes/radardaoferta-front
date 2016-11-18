@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="large-12 columns">
-            <h2>Produtos</h2>
+            <h2>Radar da Oferta</h2>
         </div>
         <hr>
         <form>
@@ -12,6 +12,7 @@
                 <div class="medium-1 columns">
                     <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
                 </div>
+                <div><label>Links da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</label></div>
                 <div class="medium-4 columns">
                     <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
                 </div>
@@ -42,7 +43,6 @@
                         <a v-else href="#" aria-label="Next page">Anterior<span class="show-for-sr"></span></a>
                         
                     </li>
-                    <li v-for="itemPage in qtdPaginasClicaveis" v-bind:class="{'current': paginator.paginaAtual == itemPage}" v-on:click="paginacao($event, itemPage)"><span v-if="paginator.paginaAtual == itemPage"><span class="show-for-sr"></span>{{ itemPage }}</span><a v-else href="#">{{ itemPage }}</a></li>
                     <li class="pagination-next" v-on:click="proximo($event)" v-bind:class="{'disabled': !proximaPaginaExiste()}">
                         <span v-if="!proximaPaginaExiste()" >Proxima<span class="show-for-sr"></span></span>
                         <a v-else href="#" aria-label="Next page">Proximo<span class="show-for-sr"></span></a>
@@ -101,7 +101,7 @@
             },
             anterior: function(e) {
                 e.preventDefault();
-                if(this.paginator.paginaAtual == 1){
+                if (this.paginator.paginaAtual == 1) {
                     return;
                 }
                 this.paginator.paginaAtual--;
@@ -111,7 +111,7 @@
             proximo: function(e) {
                 e.preventDefault();
                 var qtdItensPassado = this.paginator.paginaAtual * this.paginator.qtdItensPorPagina;
-                if ((qtdItensPassado <= this.qtdTotalItens())) {
+                if ((qtdItensPassado < this.qtdTotalItens())) {
                     this.paginator.paginaAtual++;
                     this.atualizaQuantidadeLista();
                 }
@@ -125,7 +125,7 @@
                 this.produtos = this.produtosCompleto.slice(inicio, inicio + this.paginator.qtdItensPorPagina);
             },
             proximaPaginaExiste: function() {
-                return (this.paginator.paginaAtual * this.paginator.qtdItensPorPagina) <= this.qtdTotalItens()
+                return (this.paginator.paginaAtual * this.paginator.qtdItensPorPagina) < this.qtdTotalItens()
             }
         },
 
@@ -144,10 +144,6 @@
                     this.paginator.qtdItensPorPagina = v;
                     this.atualizaQuantidadeLista();
                 }
-            },
-
-            qtdPaginasClicaveis: function() {
-                return [1, 2, 3];
             }
         },
 
