@@ -2,6 +2,7 @@
     <div class="row">
         <div class="large-12 columns">
             <h2>Radar da Oferta</h2>
+            <p class="subheader">Monitore ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</p>
         </div>
         <hr>
         <form>
@@ -12,19 +13,20 @@
                 <div class="medium-1 columns">
                     <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
                 </div>
-                <div><label>Links da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</label></div>
                 <div class="medium-4 columns">
                     <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
                 </div>
             </div>
         </form>
 
-        <div class="reveal" id="modalNovaUrlOK" data-reveal>
-            <p>Muito obrigado por compartilhar o produto</p>
+        <div class="reveal" id="modalNovaUrl" data-reveal>
+            <p id="modalNovaUrlMensagem"></p>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        
+        <a id="openModalNovaUrl" data-open="modalNovaUrl"></a>
 
         <hr>
         <div class="row small-up-2 large-up-4">
@@ -85,13 +87,18 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                axios.post('http://192.168.56.111:5014/api/produtos/novo', {
+                axios.post('http://127.0.0.1:5014/api/produtos/novo', {
                     url: this.url
                 }).then((r, e) => {
-                    if (r) {
-                        document.getElementById('openModalNovaUrlOK').click();
-                        this.url = '';
+                    if (r.data.status == "ok") {
+                        document.getElementById('modalNovaUrlMensagem').innerHTML = "Muito obrigado por compartilhar o produto";
+                    } else if (r.data.status == "error") {
+                        document.getElementById('modalNovaUrlMensagem').innerHTML = r.data.msg;
+                    } else {
+                        document.getElementById('modalNovaUrlMensagem').innerHTML = "Algo esta acontecendo, tente novamente em alguns segundos";
                     }
+                    document.getElementById('openModalNovaUrl').click();
+                    this.url = '';
                 });
             },
             paginacao: function(e, p) {
@@ -148,7 +155,7 @@
         },
 
         mounted: function() {
-            axios.get('http://192.168.56.111:5014/api/produtos').then((r) => {
+            axios.get('http://127.0.0.1:5014/api/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
