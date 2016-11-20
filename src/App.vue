@@ -87,7 +87,7 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                axios.post('http://127.0.0.1:5014/api/produtos/novo', {
+                axios.post('/api/produtos/novo', {
                     url: this.url
                 }).then((r, e) => {
                     if (r.data.status == "ok") {
@@ -155,7 +155,7 @@
         },
 
         mounted: function() {
-            axios.get('http://127.0.0.1:5014/api/produtos').then((r) => {
+            axios.get('/api/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
