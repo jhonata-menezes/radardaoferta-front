@@ -1,19 +1,19 @@
 <template>
-    <div class="row">
-        <div class="large-12 columns">
-            <h2>Radar da Oferta</h2>
-            <p class="subheader">Monitore ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</p>
+    <div class="">
+        <div class="row large-12 columns">
+            <h2 class="text-center">Radar da Oferta</h2>
+            <h3 class="subheader text-center">Monitore ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</h3>
         </div>
         <hr>
         <form>
-            <div class="">
+            <div class="row">
                 <div class="medium-4 columns">
                     <input type="text" v-model="search" placeholder="Pesquisa">
                 </div>
-                <div class="medium-1 columns">
+                <div class="medium-2 columns">
                     <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
                 </div>
-                <div class="medium-4 columns">
+                <div class="medium-6 columns">
                     <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
                 </div>
             </div>
@@ -31,9 +31,9 @@
         <hr>
         <div class="row small-up-2 large-up-4">
             <div class="column" v-for="p in filtroSearch">
-                <img v-bind:title="p.nome" class="thumbnail" v-bind:src="p.imagens[0]">
-                <h5>{{ p.nome.substring(0,46) }}</h5>
-                <p>{{ "R$ " + p.valor.toFixed(2) }}</p>
+                <img v-bind:title="p.nome" class="thumbnail" v-bind:src="p.imagens[0]" height="300" width="400">
+                <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
+                <p class="lead text-center"><span>{{ "R$ " + p.valor.toFixed(2) }}</span></p>
                 <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
             </div>
         </div>
@@ -87,7 +87,7 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                axios.post('/api/produtos/novo', {
+                axios.post('http://127.0.0.1:5014/api/produtos/novo', {
                     url: this.url
                 }).then((r, e) => {
                     if (r.data.status == "ok") {
@@ -155,7 +155,7 @@
         },
 
         mounted: function() {
-            axios.get('/api/produtos').then((r) => {
+            axios.get('http://127.0.0.1:5014/api/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
