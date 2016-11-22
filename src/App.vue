@@ -31,7 +31,14 @@
         <hr>
         <div class="row small-up-2 large-up-4">
             <div class="column" v-for="p in filtroSearch">
-                <img v-bind:title="p.nome" class="thumbnail" v-bind:src="p.imagens[0]" height="300" width="400">
+                <div class="thumbnail">
+                    <div class="top-bar">
+                        <div class="top-bar-left">
+                            Há {{ haQuantoTempoPublicado(p.created) }}
+                        </div>
+                    </div>
+                    <img v-bind:title="p.nome"  v-bind:src="p.imagens[0]" height="300" width="400">
+                </div>
                 <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
                 <p class="lead text-center"><span>{{ "R$ " + p.valor.toFixed(2) }}</span></p>
                 <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
@@ -133,6 +140,35 @@
             },
             proximaPaginaExiste: function() {
                 return (this.paginator.paginaAtual * this.paginator.qtdItensPorPagina) < this.qtdTotalItens()
+            },
+
+            diferencaTempoVisual: function(d) {
+                var now = new Date();
+                var diferenca = Math.abs(now - d);
+                var minutos = Math.trunc(diferenca / 1000 / 60);
+                if (minutos < 60) {
+                    return minutos + this.palavrasPlural(minutos, " Minuto", " Minutos");
+                }
+                var horas = Math.trunc(diferenca / 1000 / 60 / 60);
+                var minutosDeHoras = Math.trunc(minutos - (horas * 60));
+                if (minutos < 1440) {
+                    return horas + this.palavrasPlural(horas, " Hora e ", " Horas e ") + minutosDeHoras + this.palavrasPlural(minutosDeHoras, " minuto", " minutos");
+                }
+                console.log(minutos);
+                var dias = Math.trunc(horas / 24);
+                var horasDia = Math.trunc(horas - (dias * 24));
+                var minutosDia = Math.trunc(minutos - (dias * 1440) - (horasDia * 60));
+                return dias + this.palavrasPlural(dias, " Dia ", " Dias ") + horasDia + this.palavrasPlural(horasDia, " Hora e ", " Horas e ") + minutosDia + this.palavrasPlural(minutosDia, " minuto", " minutos");
+            },
+            haQuantoTempoPublicado: function(data) {
+                var date = new Date(data);
+                return this.diferencaTempoVisual(date);
+            },
+            palavrasPlural: function(i, s, p) {
+                if (i == 1) {
+                    return s;
+                }
+                return p;
             }
         },
 
