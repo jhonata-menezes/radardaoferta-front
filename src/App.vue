@@ -2,7 +2,8 @@
     <div class="">
         <div class="row large-12 columns">
             <h2 class="text-center">Radar da Oferta</h2>
-            <h3 class="subheader text-center">Monitore ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</h3>
+            <h3 class="subheader text-center">Compartilhe ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</h3>
+            <h4 class="subheader text-center">Envie promoções tambem pelo <a href="https://telegram.me/RadarDaOfertaBot" target="_blank">Telegram</a></h4>
         </div>
         <hr>
         <form>
