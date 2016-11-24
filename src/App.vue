@@ -2,17 +2,14 @@
     <div class="">
         <div class="row large-12 columns">
             <h2 class="text-center">Radar da Oferta</h2>
-            <h3 class="subheader text-center">Compartilhe ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount</h3>
-            <h4 class="subheader text-center">Envie promoções tambem pelo <a href="https://telegram.me/RadarDaOfertaBot" target="_blank">Telegram</a></h4>
+            <h3 class="subheader text-center">Compartilhe ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount e Netshoes</h3>
+            <h4 class="subheader text-center">Envie promoções tambem pelo <a href="https://telegram.me/RadarDaOfertaBot" target="_blank">Telegram <img title="RadarDaOfertaBot" width="25" height="25" src="https://telegram.org/img/t_logo.png"></a></h4>
         </div>
         <hr>
         <form>
             <div class="row">
                 <div class="medium-4 columns">
                     <input type="text" v-model="search" placeholder="Pesquisa">
-                </div>
-                <div class="medium-2 columns">
-                    <input type="number" v-model="qtdItensPorPaginaComputed" placeholder="Itens por Pagina">
                 </div>
                 <div class="medium-6 columns">
                     <input type="text" v-model="url" v-on:keyup.enter="novaUrl" placeholder="URL do novo produto">
@@ -21,7 +18,7 @@
         </form>
 
         <div class="reveal" id="modalNovaUrl" data-reveal>
-            <p id="modalNovaUrlMensagem"></p>
+            
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -29,7 +26,6 @@
         
         <a id="openModalNovaUrl" data-open="modalNovaUrl"></a>
 
-        <hr>
         <div class="row small-up-2 large-up-4">
             <div class="column" v-for="p in filtroSearch">
                 <div class="thumbnail">
@@ -40,9 +36,10 @@
                     </div>
                     <img v-bind:title="p.nome"  v-bind:src="p.imagens[0]" height="300" width="400">
                 </div>
+                <p><span class="warning badge" title="Cliques">{{ p.cliques }}</span></p>
                 <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
                 <p class="lead text-center"><span>{{ "R$ " + p.valor.toFixed(2) }}</span></p>
-                <a v-bind:href="p.link" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
+                <a v-bind:href="'api/produtos/redirecionar/' + p.id" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
             </div>
         </div>
         <div>
@@ -61,6 +58,7 @@
             </footer>
         </div>
         <hr>
+        <p id="modalNovaUrlMensagem"></p>
     </div>
 </template>
 
@@ -148,18 +146,24 @@
                 var diferenca = Math.abs(now - d);
                 var minutos = Math.trunc(diferenca / 1000 / 60);
                 if (minutos < 60) {
-                    return minutos + this.palavrasPlural(minutos, " Minuto", " Minutos");
+                    if (minutos < 10) {
+                        return "00:0" + minutos
+                    }
+                    return "00:" + minutos
                 }
                 var horas = Math.trunc(diferenca / 1000 / 60 / 60);
                 var minutosDeHoras = Math.trunc(minutos - (horas * 60));
                 if (minutos < 1440) {
-                    return horas + this.palavrasPlural(horas, " Hora e ", " Horas e ") + minutosDeHoras + this.palavrasPlural(minutosDeHoras, " minuto", " minutos");
+                    if (minutosDeHoras < 10) {
+                        return horas + ":0" + minutosDeHoras
+                    }
+                    return horas + ":" + minutosDeHoras
                 }
                 console.log(minutos);
                 var dias = Math.trunc(horas / 24);
-                var horasDia = Math.trunc(horas - (dias * 24));
-                var minutosDia = Math.trunc(minutos - (dias * 1440) - (horasDia * 60));
-                return dias + this.palavrasPlural(dias, " Dia ", " Dias ") + horasDia + this.palavrasPlural(horasDia, " Hora e ", " Horas e ") + minutosDia + this.palavrasPlural(minutosDia, " minuto", " minutos");
+                //var horasDia = Math.trunc(horas - (dias * 24));
+                //var minutosDia = Math.trunc(minutos - (dias * 1440) - (horasDia * 60));
+                return dias + this.palavrasPlural(dias, " Dia ", " Dias ");
             },
             haQuantoTempoPublicado: function(data) {
                 var date = new Date(data);
