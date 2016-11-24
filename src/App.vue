@@ -18,7 +18,7 @@
         </form>
 
         <div class="reveal" id="modalNovaUrl" data-reveal>
-            
+            <p id="modalNovaUrlMensagem"></p>
             <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -58,7 +58,6 @@
             </footer>
         </div>
         <hr>
-        <p id="modalNovaUrlMensagem"></p>
     </div>
 </template>
 
