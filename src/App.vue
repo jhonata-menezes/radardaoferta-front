@@ -2,7 +2,7 @@
     <div class="">
         <div class="row large-12 columns">
             <h2 class="text-center">Radar da Oferta</h2>
-            <h3 class="subheader text-center">Compartilhe ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount e Netshoes</h3>
+            <h3 class="subheader text-center">Compartilhe ofertas da submarino, americanas, shoptime, soubarato, casabahia, ponto frio, extra, cdiscount, netshoes, magazine luiza e walmart </h3>
             <h4 class="subheader text-center">Envie promoções tambem pelo <a href="https://telegram.me/RadarDaOfertaBot" target="_blank">Telegram <img title="RadarDaOfertaBot" width="25" height="25" src="https://telegram.org/img/t_logo.png"></a></h4>
         </div>
         <hr>
