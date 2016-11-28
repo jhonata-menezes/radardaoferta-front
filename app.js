@@ -4,6 +4,8 @@ var App = require('./App.vue')
 var axios = require('axios')
 var VueAxios = require('vue-axios')
 
+Vue.config.devtools = false;//desabilita mensagem no browser
+
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 
