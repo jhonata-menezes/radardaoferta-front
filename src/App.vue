@@ -158,10 +158,7 @@
                     }
                     return horas + ":" + minutosDeHoras
                 }
-                console.log(minutos);
                 var dias = Math.trunc(horas / 24);
-                //var horasDia = Math.trunc(horas - (dias * 24));
-                //var minutosDia = Math.trunc(minutos - (dias * 1440) - (horasDia * 60));
                 return dias + this.palavrasPlural(dias, " Dia ", " Dias ");
             },
             haQuantoTempoPublicado: function(data) {
