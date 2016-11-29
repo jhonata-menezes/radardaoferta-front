@@ -27,8 +27,9 @@
         <a id="openModalNovaUrl" data-open="modalNovaUrl"></a>
 
         <div class="row small-up-2 large-up-4">
-            <div class="column" v-for="p in filtroSearch">
+            <div class="column" v-for="p in filtroSearch" >
                 <div class="thumbnail">
+                <div class="">
                     <div class="top-bar">
                         <div class="top-bar-left">
                             Há {{ haQuantoTempoPublicado(p.created) }}
@@ -39,7 +40,8 @@
                 <p><span class="warning badge" title="Cliques">{{ p.cliques }}</span></p>
                 <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
                 <p class="lead text-center"><span>{{ "R$ " + p.valor.toFixed(2) }}</span></p>
-                <a v-bind:href="'api/produtos/redirecionar/' + p.id" class="button expanded" target="_blank"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }}<b></a>
+                <a v-bind:href="'api/produtos/redirecionar/' + p.id" class="button expanded" target="_blank" aria-hidden="true"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }} <i class="fa fa-external-link"> </i><b></a>
+            </div>
             </div>
         </div>
         <div>
