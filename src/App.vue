@@ -201,7 +201,7 @@
         },
 
         mounted: function() {
-            axiosRadarOferta.get('/api/produtos').then((r) => {
+            axiosRadarOferta.get('/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
