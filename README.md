@@ -1,4 +1,4 @@
-# sopromocao
+# Radar da Oferta
 
 > A Vue.js project
 

@@ -40,7 +40,7 @@
                 <p><span class="warning badge" title="Cliques">{{ p.cliques }}</span></p>
                 <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
                 <p class="lead text-center"><span>{{ "R$ " + p.valor.toFixed(2) }}</span></p>
-                <a v-bind:href="'api/produtos/redirecionar/' + p.id" class="button expanded" target="_blank" aria-hidden="true"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }} <i class="fa fa-external-link"> </i><b></a>
+                <a v-bind:href="'/produtos/redirecionar/' + p.id" class="button expanded" target="_blank" aria-hidden="true"><b>{{ p.loja.charAt(0).toUpperCase() + p.loja.slice(1) }} <i class="fa fa-external-link"> </i><b></a>
             </div>
             </div>
         </div>
@@ -67,6 +67,13 @@
 
 <script>
     var axios = require('axios')
+    var axiosRadarOferta = axios.create({
+        baseURL: 'http://api.radardaoferta.com.br/',
+        timeout: 9000,
+        headers: {
+            //
+        }
+    });
     module.exports = {
         data: function() {
             return {
@@ -94,7 +101,7 @@
             },
             novaUrl: function(event) {
                 event.preventDefault();
-                axios.post('/api/produtos/novo', {
+                axiosRadarOferta.post('/produtos/novo', {
                     url: this.url
                 }).then((r, e) => {
                     if (r.data.status == "ok") {
@@ -194,7 +201,7 @@
         },
 
         mounted: function() {
-            axios.get('/api/produtos').then((r) => {
+            axiosRadarOferta.get('/api/produtos').then((r) => {
                 if (r) {
                     this.produtosCompleto = r.data;
                     this.produtos = this.produtosCompleto.slice(0, this.paginator.qtdItensPorPagina);
