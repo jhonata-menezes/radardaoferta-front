@@ -35,7 +35,7 @@
                             Há {{ haQuantoTempoPublicado(p.created) }}
                         </div>
                     </div>
-                    <img v-bind:title="p.nome"  v-bind:src="p.imagens[0]" height="300" width="400">
+                    <img v-bind:title="p.nome"  v-bind:src="p.imagens[0]" style="width=100%">
                 </div>
                 <p><span class="warning badge" title="Cliques">{{ p.cliques }}</span></p>
                 <h6 class="column">{{ p.nome.substring(0,46) }}</h6>
