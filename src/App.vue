@@ -218,7 +218,7 @@
         height: 200px;
     }
     
-    .image-height {
+    .image-height img {
         height: 180px;
     }
 </style>
