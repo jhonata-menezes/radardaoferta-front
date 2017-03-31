@@ -29,7 +29,7 @@
         <div class="row small-up-2 large-up-4">
             <div class="column" v-for="p in filtroSearch" >
                 <div class="thumbnail">
-                <div class="">
+                <div class="image-height">
                     <div class="top-bar">
                         <div class="top-bar-left">
                             Há {{ haQuantoTempoPublicado(p.created) }}
@@ -211,3 +211,9 @@
 
     }
 </script>
+
+<style>
+    .image-height {
+        height: 200px;
+    }
+</style>
