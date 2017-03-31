@@ -214,6 +214,11 @@
 
 <style>
     .image-height {
+        text-align: center;
         height: 200px;
+    }
+    
+    .image-height {
+        height: 180px;
     }
 </style>
